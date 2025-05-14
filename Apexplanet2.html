@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Contact Form & To-Do List</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ece9e6, #ffffff);
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    /* Flexbox Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      padding: 15px 30px;
+      color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+      animation: slideIn 0.5s ease-in;
+    }
+
+    nav h1 {
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #a1c4fd;
+      transform: translateY(-2px);
+    }
+
+    /* CSS Grid Layout */
+    .container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 25px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .contact-form, .todo-list {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .contact-form:hover, .todo-list:hover {
+      transform: translateY(-5px);
+    }
+
+    .contact-form h2, .todo-list h2 {
+      margin-bottom: 20px;
+      color: #1e3c72;
+      font-size: 1.9rem;
+    }
+
+    /* Contact Form Styling */
+    .contact-form form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-form label {
+      font-weight: 600;
+      color: #2a5298;
+    }
+
+    .contact-form input, .contact-form textarea {
+      padding: 12px;
+      border: 2px solid #dcdcdc;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .contact-form input:focus, .contact-form textarea:focus {
+      border-color: #2a5298;
+      box-shadow: 0 0 8px rgba(42, 82, 152, 0.3);
+      outline: none;
+    }
+
+    .contact-form button {
+      padding: 12px;
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .contact-form button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .error {
+      color: #d32f2f;
+      font-size: 0.9rem;
+      display: none;
+      animation: fadeIn 0.3s;
+    }
+
+    /* To-Do List Styling */
+    .todo-list form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .todo-list input {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #dcdcdc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .todo-list button {
+      padding: 12px 20px;
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .todo-list button:hover {
+      transform: scale(1.05);
+    }
+
+    .todo-list ul {
+      list-style: none;
+    }
+
+    .todo-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .todo-list li.completed {
+      background: #e8f5e9;
+      text-decoration: line-through;
+    }
+
+    .todo-list li button {
+      background: #d32f2f;
+      padding: 6px 12px;
+      font-size: 0.9rem;
+    }
+
+    .todo-list li button:hover {
+      background: #b71c1c;
+    }
+
+    /* Animations */
+    @keyframes slideIn {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <h1>Advanced Project</h1>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#todo">To-Do</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Contact Form -->
+    <section class="contact-form" id="contact">
+      <h2>Contact Us</h2>
+      <form id="contactForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <span id="nameError" class="error">Name is required</span>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <span id="emailError" class="error">Enter a valid email</span>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+        <span id="messageError" class="error">Message is required</span>
+
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+
+    <!-- To-Do List -->
+    <section class="todo-list" id="todo">
+      <h2>To-Do List</h2>
+      <form id="todoForm">
+        <input type="text" id="todoInput" placeholder="Add a task" required>
+        <button type="submit">Add</button>
+      </form>
+      <ul id="todoList"></ul>
+    </section>
+  </div>
+
+  <script>
+// Contact Form Validation with Real-Time Feedback
+const contactForm = document.getElementById('contactForm');
+const inputs = contactForm.querySelectorAll('input, textarea');
+
+inputs.forEach(input => {
+  input.addEventListener('input', () => {
+    validateField(input);
+  });
+});
+
+function validateField(input) {
+  const error = document.getElementById(`${input.id}Error`);
+  if (input.id === 'email') {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    error.style.display = emailRegex.test(input.value.trim()) || !input.value.trim() ? 'none' : 'block';
+  } else {
+    error.style.display = input.value.trim() ? 'none' : 'block';
+  }
+}
+
+contactForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let isValid = true;
+
+  inputs.forEach(input => {
+    validateField(input);
+    if (document.getElementById(`${input.id}Error`).style.display === 'block') {
+      isValid = false;
+    }
+  });
+
+  if (isValid) {
+    alert('Form submitted successfully!');
+    contactForm.reset();
+  }
+});
+
+// To-Do List with localStorage and Completion Toggle
+const todoForm = document.getElementById('todoForm');
+const todoInput = document.getElementById('todoInput');
+const todoList = document.getElementById('todoList');
+
+// Load tasks from localStorage
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+function saveTasks() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function renderTasks() {
+  todoList.innerHTML = '';
+  tasks.forEach((task, index) => {
+    const li = document.createElement('li');
+    li.className = task.completed ? 'completed' : '';
+    li.innerHTML = `
+      <span>${task.text}</span>
+      <div>
+        <button class="toggle-btn">${task.completed ? 'Undo' : 'Complete'}</button>
+        <button class="delete-btn">Delete</button>
+      </div>
+    `;
+    li.querySelector('.toggle-btn').addEventListener('click', () => {
+      tasks[index].completed = !tasks[index].completed;
+      saveTasks();
+      renderTasks();
+    });
+    li.querySelector('.delete-btn').addEventListener('click', () => {
+      tasks.splice(index, 1);
+      saveTasks();
+      renderTasks();
+    });
+    todoList.appendChild(li);
+  });
+}
+
+todoForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const task = todoInput.value.trim();
+  if (task) {
+    tasks.push({ text: task, completed: false });
+    saveTasks();
+    renderTasks();
+    todoInput.value = '';
+  }
+});
+
+renderTasks();
+</script>
+</body>
+</html>
